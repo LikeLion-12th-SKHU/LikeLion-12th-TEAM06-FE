@@ -1,0 +1,98 @@
+{
+  "CLSE": {
+    "id": "CLSE",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/560beeec-04b2-41f7-b284-535f3e746a29.png",
+    "nickname": "페페로미아",
+    "descrption": "페페로미아는 다양한 색상과 형태가 있어 작은 공간에 놓기 좋으며, 관리도 상대적으로 쉬운 편입니다. 밝은 곳에서 잘 자라며, 물 주기 빈도도 자주 필요하지 않습니다."
+  },
+  "CLSO": {
+    "id": "CLSO",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/cb1b3551-676c-4873-85c0-f575931af270.png",
+    "nickname": "스투키",
+    "descrption": "스투키는 강한 생명력을 가지고 있어 가끔만 물을 주어도 잘 자랍니다. 밝은 환경에서 잘 자라며, 작은 공간에서도 무리 없이 키울 수 있습니다."
+  },
+  "CLBE": {
+    "id": "CLBE",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/a4f5d018-1ca4-4eed-b77f-ba359c18ab09.png",
+    "nickname": "몬스테라",
+    "descrption": " 몬스테라는 크고 아름다운 잎을 가진 식물로 넓은 공간에 잘 어울립니다. 주기적으로 물과 관리를 해주면 건강하게 자라며, 밝은 곳에서 특히 잘 자랍니다."
+  },
+  "CLBO": {
+    "id": "CLBO",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/239dd230-8c26-43b0-abf1-eb5dd2d7eafb.png",
+    "nickname": "팔손이",
+    "descrption": "팔손이는 크고 무성하게 자라며, 넓은 공간에 잘 어울립니다. 비교적 관리가 쉬운 편이며, 가끔만 물을 주어도 잘 자랍니다."
+  },
+  "CGBE": {
+    "id": "CGBE",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/3e9231b9-9127-424f-a747-9a84bc3f50d8.png",
+    "nickname": "산세베리아",
+    "descrption": "산세베리아는 어두운 환경에서도 잘 자라며, 넓은 공간에 두기 좋습니다. 주기적인 물 주기와 관리가 필요하지만, 생명력이 강해 키우기 쉽습니다."
+  },
+  "CGBO": {
+    "id": "CGBO",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/f2c1432d-90b4-44ea-b504-8cd08966df25.png",
+    "nickname": "고무나무",
+    "descrption": "고무나무는 어두운 환경에서도 잘 자라며, 넓은 공간에 잘 어울립니다. 가끔만 물을 주어도 잘 자라며, 공기 정화 능력도 뛰어납니다."
+  },
+  "CGSE": {
+    "id": "CGSE",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/0d00eb9d-bdc0-44f3-8d2f-2854eed1eaed.png",
+    "nickname": "스파티필름",
+    "descrption": "스파티필름은 어두운 환경에서도 잘 자라며, 작은 공간에 잘 어울립니다. 주기적으로 물을 주면 건강하게 자라며, 공기 정화 능력도 뛰어납니다."
+  },
+  "CGSO": {
+    "id": "CGSO",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/560beeec-04b2-41f7-b284-535f3e746a29.png",
+    "nickname": "페페로미아",
+    "descrption": "페페로미아는 낮은 빛에서도 잘 자라며, 작은 공간에 적합합니다. 물 주기가 비교적 적어도 잘 자라므로 가끔만 관리해도 됩니다."
+  },
+  "DLSE": {
+    "id": "DLSE",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/a760d9a8-f395-4c13-a935-382e0b77aca3.png",
+    "nickname": "필로덴드론",
+    "descrption": "필로덴드론은 밝은 환경에서 잘 자라며, 작은 공간에도 적합합니다. 주기적인 물 주기와 관리가 필요하지만, 아름다운 잎을 감상할 수 있습니다."
+  },
+  "DLSO": {
+    "id": "DLSO",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/543fbae0-9035-4086-908c-993ba5b7bc91.png",
+    "nickname": "드라세나",
+    "descrption": "드라세나는 강한 생명력을 가지고 있어 가끔만 물을 주어도 잘 자랍니다. 밝은 환경에서 잘 자라며, 작은 공간에 두기 좋습니다."
+  },
+  "DLBE": {
+    "id": "DLBE",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/756463b6-b042-4575-9b1c-5b139593a34a.png",
+    "nickname": "알로카시아",
+    "descrption": "알로카시아는 크고 독특한 잎을 가지고 있어 넓은 공간에 잘 어울립니다. 밝은 환경에서 잘 자라며, 주기적인 관리가 필요합니다."
+  },
+  "DLBO": {
+    "id": "DLBO",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/2726e2c8-a8a2-4cc5-be81-3bd81b5463fb.png",
+    "nickname": "뱅갈고무나무",
+    "descrption": "뱅갈고무나무는 넓은 공간에 잘 어울리며, 밝은 환경에서 잘 자랍니다. 가끔만 물을 주어도 잘 자라며, 공기 정화 능력도 뛰어납니다."
+  },
+  "DGBE": {
+    "id": "DGBE",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/9f5ac309-3c78-41ee-86cb-f9e759a8b3b4.png",
+    "nickname": "디펜바키아",
+    "descrption": "디펜바키아는 어두운 환경에서도 잘 자라며, 넓은 공간에 두기 좋습니다. 주기적인 물 주기와 관리가 필요하지만, 큰 잎이 아름답습니다."
+  },
+  "DGBO": {
+    "id": "DGBO",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/b5ee8c76-e01e-4c85-89a1-07fb8a2500a0.png",
+    "nickname": "안스리움",
+    "descrption": "안스리움은 어두운 환경에서도 잘 자라며, 넓은 공간에 두기 좋습니다. 가끔만 물을 주어도 잘 자라며, 꽃이 피면 아름다운 색상을 제공합니다."
+  },
+  "DGSE": {
+    "id": "DGSE",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/2c9be8aa-6d4c-4cf4-9d4d-740516311075.png",
+    "nickname": "아글라오네마",
+    "descrption": "아글라오네마는 어두운 환경에서도 잘 자라며, 작은 공간에 적합합니다. 주기적인 물 주기와 관리가 필요하지만, 아름다운 잎을 감상할 수 있습니다."
+  },
+  "DGSO": {
+    "id": "DGSO",
+    "img": "https://wrtn-image-user-output.s3.ap-northeast-2.amazonaws.com/669b08acedeeaa24165f84ee/bdf61b26-b689-4a32-8e68-849e83db925f.png",
+    "nickname": "호야",
+    "descrption": "호야는 낮은 빛에서도 잘 자라며, 작은 공간에 적합합니다. 가끔만 물을 주어도 잘 자라며, 꽃이 피면 아름다운 향기를 제공합니다."
+  }
+}
