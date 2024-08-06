@@ -13,15 +13,18 @@ function Group() {
   const [tooltipIndex, setTooltipIndex] = useState(null);
 
   useEffect(() => {
-    // 백엔드에서 데이터 가져오기
-    axios
-      .get("https://localhost:3000/cooperate")
-      .then((response) => {
-        setGroups(response.data); // 서버에서 받은 데이터를 상태에 저장
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://planticatio.site/api/v1/cooperate/read"
+        );
+        setGroups(response.data);
+      } catch (error) {
         console.error("데이터를 가져오는 중 오류가 발생했습니다:", error);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleJoinClick = (index) => {

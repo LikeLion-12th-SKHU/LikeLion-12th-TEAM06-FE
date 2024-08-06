@@ -20,20 +20,21 @@ function GroupCreate() {
       title,
       openStatus: publicStatus === "yes",
       image,
-      people: parseInt(number),
+      people: parseInt(number, 10),
       content,
       createdAt: new Date().toISOString(),
     };
 
     try {
       const response = await axios.post(
-        "https://localhost:3000/cooperate",
-        newEntry
+        "http://plantication.site/api/v1/cooperate/create",
+        newEntry,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      const { accessToken, refreshToken } = response.data.data;
-
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
 
       if (response.status === 200) {
         alert("그룹이 성공적으로 생성되었습니다!");

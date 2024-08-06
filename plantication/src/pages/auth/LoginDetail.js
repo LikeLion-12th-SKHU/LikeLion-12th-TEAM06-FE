@@ -1,21 +1,23 @@
 import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LoginDetail() {
-  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const handleUsernameChange = (event) => {
+  const handleEmailChange = (event) => {
     const { value } = event.target;
-    setUsername(value);
+    setEmail(value);
 
     if (value.trim() === "") {
-      setUsernameError("아이디를 입력해주세요.");
+      setEmailError("이메일을 입력해주세요.");
     } else {
-      setUsernameError("");
+      setEmailError("");
     }
   };
 
@@ -33,14 +35,19 @@ function LoginDetail() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const userData = {
-      username,
-      password,
-    };
-
     try {
-      const response = await axios.post("http://localhost:3000/auth", userData);
-      console.log(response.data); // 성공 시 처리
+      const response = await axios.post(
+        "http://plantication.site/api/v1/auth/login",
+        { email, password }
+      );
+
+      const { accessToken, refreshToken } = response.data.data;
+
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
+      alert("회원가입 완료!");
+      navigate("/");
     } catch (error) {
       console.error(error); // 에러 시 처리
     }
@@ -52,13 +59,9 @@ function LoginDetail() {
         <Header>로그인</Header>
         <Form onSubmit={handleSubmit}>
           <Label>
-            아이디
-            <Input
-              type="text"
-              value={username}
-              onChange={handleUsernameChange}
-            />
-            {usernameError && <Error>{usernameError}</Error>}
+            이메일
+            <Input type="text" value={email} onChange={handleEmailChange} />
+            {emailError && <Error>{emailError}</Error>}
           </Label>
           <Label>
             비밀번호

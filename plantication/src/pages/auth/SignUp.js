@@ -94,13 +94,16 @@ function SignUp() {
     }
 
     try {
-      const response = await axios.post("https://localhost:3000/auth", {
-        email,
-        password,
-        repassword,
-        nickname,
-        profileImage,
-      });
+      const response = await axios.post(
+        "http://plantication.site/api/v1/auth",
+        {
+          email,
+          password,
+          repassword,
+          nickname,
+          profileImage,
+        }
+      );
 
       const { accessToken, refreshToken } = response.data.data;
 
