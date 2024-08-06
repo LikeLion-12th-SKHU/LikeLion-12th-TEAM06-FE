@@ -2,16 +2,34 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import postsData from "../common/api/diaryApi.json";
 import { useNavigate } from "react-router-dom";
+import { getDiaries, getDiaryLikes } from "../api"; // getDiaries 및 getDiaryLikes 함수 import
 
 function DiaryPage() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // JSON 데이터를 로드합니다.
-    setPosts(postsData.posts);
+    const fetchPosts = async () => {
+      try {
+        const response = await getDiaries();
+        const diaries = response.data.diaries;
+
+        // 각 다이어리 항목의 좋아요 수를 가져옴
+        const diariesWithLikes = await Promise.all(
+          diaries.map(async (diary) => {
+            const likesResponse = await getDiaryLikes(diary.id);
+            return { ...diary, likes: likesResponse.data };
+          })
+        );
+
+        setPosts(diariesWithLikes);
+      } catch (error) {
+        console.error("다이어리 데이터를 가져오는 데 실패했습니다:", error);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
   const handlePostClick = (id) => {
@@ -21,21 +39,23 @@ function DiaryPage() {
   return (
     <MainContainer>
       <Header />
-      <Title>Diary Page</Title>
+      <Title1>Diary Page</Title1>
       <PostsContainer>
-        {posts.map((post) => (
-          <PostCard key={post.id} onClick={() => handlePostClick(post.id)}>
-            <Image src={post.img} alt={post.user} />
-            <Details>
-              <User>{post.user}</User>
-              <Date>{post.date}</Date>
-              <Metrics>
-                <Likes>❤️ {post.likes}</Likes>
-                <Comments>💬 {post.comments}</Comments>
-              </Metrics>
-            </Details>
-          </PostCard>
-        ))}
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <PostCard key={post.id} onClick={() => handlePostClick(post.id)}>
+              <Image src={post.image} alt={post.title} />
+              <Details>
+                <Title1>{post.title}</Title1>
+                <Content>{post.content}</Content>
+                <Date>{new Date(post.createdAt).toLocaleDateString()}</Date>
+                <Likes>❤️ {post.likes}</Likes> {/* 좋아요 수 표시 */}
+              </Details>
+            </PostCard>
+          ))
+        ) : (
+          <NoData>일기를 추가해주세요.</NoData>
+        )}
       </PostsContainer>
       <AddBtn onClick={() => navigate("/diary/add")}> + </AddBtn>
       <Footer />
@@ -70,6 +90,7 @@ const PostsContainer = styled.div`
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
+  align-items: center;
 `;
 
 const PostCard = styled.div`
@@ -79,7 +100,13 @@ const PostCard = styled.div`
   border-radius: 10px;
   overflow: hidden;
   background-color: #fff;
-  cursor: pointer; // 커서 포인터 추가
+  cursor: pointer;
+`;
+
+const NoData = styled.div`
+  font-size: 1.2rem;
+  color: #ff0000;
+  padding-top: 10px;
 `;
 
 const Image = styled.img`
@@ -92,33 +119,30 @@ const Details = styled.div`
   padding: 10px;
 `;
 
-const User = styled.div`
+const Title1 = styled.div`
   font-weight: bold;
+  margin-bottom: 5px;
 `;
 
-const Date = styled.div`
+const Content = styled.div`
   color: #888;
   margin-bottom: 10px;
 `;
 
-const Metrics = styled.div`
-  display: flex;
-  justify-content: space-between;
+const Date = styled.div`
+  color: #888;
+  font-size: 12px;
 `;
 
 const Likes = styled.div`
   color: red;
 `;
 
-const Comments = styled.div`
-  color: blue;
-`;
-
 const AddBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: sticky;
+  position: fixed;
   bottom: 100px;
   align-self: flex-end;
   border: none;

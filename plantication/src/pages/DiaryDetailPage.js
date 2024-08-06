@@ -1,39 +1,99 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import postsData from "../common/api/diaryApi.json";
-import { useNavigate } from "react-router-dom";
+import { getDiary, addComment, deleteComment, updateComment } from "../api";
 
 function DiaryDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const post = postsData.posts.find((post) => post.id === id);
-
-  const [comments, setComments] = useState(post?.commentsList || []);
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editingContent, setEditingContent] = useState("");
 
-  if (!post) {
-    return <div>Post not found</div>;
-  }
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await getDiary(id);
+        setPost(response.data);
+        setComments(response.data.comments);
+      } catch (error) {
+        console.error("Failed to fetch diary data:", error);
+      }
+    };
+
+    fetchPost();
+  }, [id]);
 
   const handleCommentChange = (e) => {
     setNewComment(e.target.value);
   };
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (newComment.trim()) {
-      setComments([...comments, newComment.trim()]);
-      setNewComment("");
+      try {
+        const response = await addComment(id, newComment.trim());
+        setComments([...comments, response.data]);
+        setNewComment("");
+      } catch (error) {
+        console.error("Failed to add comment:", error);
+      }
     }
   };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const userId = 1; // Replace with actual userId
+      await deleteComment(id, commentId, userId);
+      setComments(comments.filter((comment) => comment.id !== commentId));
+    } catch (error) {
+      console.error("Failed to delete comment:", error);
+    }
+  };
+
+  const handleEditComment = (comment) => {
+    setEditingCommentId(comment.id);
+    setEditingContent(comment.content);
+  };
+
+  const handleUpdateComment = async (e) => {
+    e.preventDefault();
+    if (editingContent.trim()) {
+      try {
+        const userId = 1; // Replace with actual userId
+        await updateComment(
+          id,
+          editingCommentId,
+          userId,
+          editingContent.trim()
+        );
+        setComments(
+          comments.map((comment) =>
+            comment.id === editingCommentId
+              ? { ...comment, content: editingContent }
+              : comment
+          )
+        );
+        setEditingCommentId(null);
+        setEditingContent("");
+      } catch (error) {
+        console.error("Failed to update comment:", error);
+      }
+    }
+  };
+
+  if (!post) {
+    return <div>Post not found</div>;
+  }
 
   return (
     <DetailContainer>
       <CancelBtn onClick={() => navigate("/diary")}>←</CancelBtn>
       <PostCard>
-        <Image src={post.img} alt={post.user} />
+        <Image src={post.image} alt={post.title} />
         <PostContent>
           <Title>{post.title}</Title>
           <Content>{post.content}</Content>
@@ -41,13 +101,34 @@ function DiaryDetailPage() {
             <Likes>❤️ {post.likes}</Likes>
             <Comments>💬 {comments.length}</Comments>
           </Metrics>
-          <Date>{post.date}</Date>
+          <Date>{new Date(post.createdAt).toLocaleDateString()}</Date>
         </PostContent>
       </PostCard>
       <CommentSection>
         <CommentList>
-          {comments.map((comment, index) => (
-            <CommentItem key={index}>{comment}</CommentItem>
+          {comments.map((comment) => (
+            <CommentItem key={comment.id}>
+              {editingCommentId === comment.id ? (
+                <form onSubmit={handleUpdateComment}>
+                  <CommentInput
+                    type="text"
+                    value={editingContent}
+                    onChange={(e) => setEditingContent(e.target.value)}
+                  />
+                  <SubmitButton type="submit">Update</SubmitButton>
+                </form>
+              ) : (
+                <>
+                  {comment.content}
+                  <EditButton onClick={() => handleEditComment(comment)}>
+                    Edit
+                  </EditButton>
+                  <DeleteButton onClick={() => handleDeleteComment(comment.id)}>
+                    Delete
+                  </DeleteButton>
+                </>
+              )}
+            </CommentItem>
           ))}
         </CommentList>
         <CommentForm onSubmit={handleCommentSubmit}>
@@ -184,5 +265,35 @@ const SubmitButton = styled.button`
 
   &:hover {
     background-color: #0056b3;
+  }
+`;
+
+const EditButton = styled.button`
+  padding: 5px;
+  font-size: 12px;
+  border: none;
+  border-radius: 3px;
+  background-color: #f0ad4e;
+  color: white;
+  cursor: pointer;
+  margin-left: 5px;
+
+  &:hover {
+    background-color: #ec971f;
+  }
+`;
+
+const DeleteButton = styled.button`
+  padding: 5px;
+  font-size: 12px;
+  border: none;
+  border-radius: 3px;
+  background-color: #d9534f;
+  color: white;
+  cursor: pointer;
+  margin-left: 5px;
+
+  &:hover {
+    background-color: #c9302c;
   }
 `;

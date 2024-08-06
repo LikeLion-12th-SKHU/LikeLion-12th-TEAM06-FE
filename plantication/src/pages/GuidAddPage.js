@@ -1,9 +1,8 @@
-// src/pages/GuidAddPage.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import { createPlant } from "../api"; // createPlant 함수 import
+import { createPlant, getPlantGuides } from "../api"; // createPlant, getPlantGuides 함수 import
 
 function GuidAddPage() {
   const navigate = useNavigate();
@@ -12,10 +11,31 @@ function GuidAddPage() {
   const [shortDescription, setShortDescription] = useState("");
   const [description, setDescription] = useState("");
   const [urlError, setUrlError] = useState(false);
+  const [newUserId, setNewUserId] = useState(null);
+
+  // 마지막 도감 번호 가져오기
+  useEffect(() => {
+    const fetchGuides = async () => {
+      try {
+        const response = await getPlantGuides();
+        const guides = response.data;
+        if (guides.length > 0) {
+          const lastId = Math.max(...guides.map((guide) => guide.id));
+          setNewUserId(lastId + 1);
+        } else {
+          setNewUserId(1);
+        }
+      } catch (error) {
+        console.error("Failed to fetch guides:", error);
+      }
+    };
+
+    fetchGuides();
+  }, []);
 
   const handleImageUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setSelectedImage(URL.createObjectURL(e.target.files[0]));
+      setSelectedImage(e.target.files[0]);
     }
   };
 
@@ -30,10 +50,11 @@ function GuidAddPage() {
     } else {
       setUrlError(false);
       const newPlant = {
-        nickname,
-        img: selectedImage,
-        shortDescription,
-        description,
+        user: newUserId, // 새로운 사용자 ID 설정
+        title: nickname,
+        sentence: shortDescription,
+        content: description,
+        image: selectedImage,
       };
 
       try {
@@ -54,7 +75,10 @@ function GuidAddPage() {
           식물사진:
           <ImageUpload>
             {selectedImage ? (
-              <ImagePreview src={selectedImage} alt="Preview" />
+              <ImagePreview
+                src={URL.createObjectURL(selectedImage)}
+                alt="Preview"
+              />
             ) : (
               <div>사진첨부</div>
             )}
@@ -202,6 +226,10 @@ const Input = styled.input`
   font-size: 16px;
   border: 1px solid #025d00;
   border-radius: 10px;
+
+  &.error {
+    border-color: red;
+  }
 `;
 
 const Textarea = styled.textarea`
@@ -212,6 +240,10 @@ const Textarea = styled.textarea`
   border-radius: 10px;
   height: 235px;
   resize: none;
+
+  &.error {
+    border-color: red;
+  }
 `;
 
 const ErrorText = styled.div`

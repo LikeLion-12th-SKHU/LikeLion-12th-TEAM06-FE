@@ -13,7 +13,7 @@ function GuidePage() {
     const fetchPlants = async () => {
       try {
         const response = await getPlantGuides();
-        setPlants(response.data);
+        setPlants(response.data.guides); // 응답 데이터의 구조에 맞게 수정
       } catch (error) {
         console.error("식물 도감 데이터를 가져오는 데 실패했습니다:", error);
       }
@@ -30,10 +30,10 @@ function GuidePage() {
         {plants.length > 0 ? (
           plants.map((plant) => (
             <GroupDetails key={plant.id}>
-              <PlantImage src={plant.img} alt={plant.nickname} />
+              <PlantImage src={plant.image} alt={plant.title} />
               <PlantText>
-                <PlantTitle>{plant.nickname}</PlantTitle>
-                <PlantDescription>{plant.description}</PlantDescription>
+                <PlantTitle>{plant.title}</PlantTitle>
+                <PlantDescription>{plant.sentence}</PlantDescription>
               </PlantText>
             </GroupDetails>
           ))

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function MyPage() {
   const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState(
-    "path/to/default/profile/image.jpg"
+    process.env.PUBLIC_URL + "/assets/img/user.png" // 기본 이미지 경로 설정
   );
 
   const handleProfileEdit = (e) => {
@@ -24,15 +24,18 @@ function MyPage() {
 
   return (
     <PageContainer>
-      <Title>My Page</Title>
+      <Title>마이페이지</Title>
       <Section>
         <SectionTitle>프로필 수정</SectionTitle>
         <Content>
-          <ProfileImage src={profileImage} alt="Profile" />
-          <EditButton>
-            프로필 이미지 변경
-            <input type="file" onChange={handleProfileEdit} />
-          </EditButton>
+          <ProfileEditContainer>
+            <ProfileImage src={profileImage} alt="Profile" />
+            <Content>사용자명</Content>
+            <EditButton>
+              프로필 이미지 변경
+              <input type="file" onChange={handleProfileEdit} />
+            </EditButton>
+          </ProfileEditContainer>
         </Content>
       </Section>
       <Section>
@@ -83,26 +86,30 @@ const PageContainer = styled.div`
   box-sizing: border-box;
   background-color: #fdfdfd;
   align-items: center;
+  padding-top: 20px;
 `;
 
 const Title = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
   color: #000;
+  font-weight: bold;
+  padding-top: 20px;
 `;
 
 const Section = styled.div`
   width: 100%;
-  border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
   margin-bottom: 20px;
   padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow added */
 `;
 
 const SectionTitle = styled.h2`
   font-size: 20px;
   margin-bottom: 15px;
+  font-weight: bold;
   color: #000;
 `;
 
@@ -111,11 +118,20 @@ const Content = styled.div`
   margin: 0;
 `;
 
+const ProfileEditContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+`;
+
 const ProfileImage = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 40px; /* 정사각형 크기로 설정 */
+  height: 40px; /* 정사각형 크기로 설정 */
   border-radius: 50%;
-  margin-bottom: 10px;
+  margin-right: 10px;
 `;
 
 const EditButton = styled.label`
@@ -124,8 +140,8 @@ const EditButton = styled.label`
   font-size: 16px;
   border: none;
   border-radius: 10px;
-  background-color: #32cd32;
-  color: white;
+  background-color: #e9ebf1; /* Color changed */
+  color: #000;
   cursor: pointer;
   position: relative;
 
@@ -140,7 +156,7 @@ const EditButton = styled.label`
   }
 
   &:hover {
-    background-color: #228b22;
+    background-color: #d3d4d9; /* Hover effect */
   }
 `;
 
@@ -148,13 +164,13 @@ const SubSection = styled.div`
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
-  background-color: #32cd32;
-  color: white;
+  background-color: #e9ebf1; /* Color changed */
+  color: #000;
   cursor: pointer;
   text-align: center;
 
   &:hover {
-    background-color: #228b22;
+    background-color: #d3d4d9; /* Hover effect */
   }
 `;
 
@@ -163,13 +179,13 @@ const InquiryButton = styled.button`
   font-size: 16px;
   border: none;
   border-radius: 10px;
-  background-color: #32cd32;
-  color: white;
+  background-color: #e9ebf1; /* Color changed */
+  color: #000;
   cursor: pointer;
   width: 100%;
   text-align: center;
 
   &:hover {
-    background-color: #228b22;
+    background-color: #d3d4d9; /* Hover effect */
   }
 `;
